@@ -9,6 +9,3 @@ O design do projeto foi desenvolvido na plataforma Figma, você pode acessar o p
 No total foram desenhadas duas páginas. A Home contém o formulário solicitado, com inputs para 4  informações: nome, cpf, telefone e e-mail. 
 
 Já a segunda página, de registros, é responsável por listar os cadastros feitos anteriormente, além de possibilitar sua alteração ou exclusão.
-
-
-
