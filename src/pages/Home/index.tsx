@@ -2,6 +2,8 @@ import React, { useRef, useCallback } from 'react'
 
 import { Box, Input, Form, FormHandles, Button } from '../../shared'
 
+import { Header } from '../../components'
+
 export interface Inputs {
   label: string
   name: string
@@ -34,8 +36,10 @@ const Home: React.FC = () => {
       d="flex"
       justifyContent="center"
       alignItems="center"
-      mt="8rem"
+      flexDir="column"
+      mt="5rem"
     >
+      <Header />
       <Form
         onSubmit={onSubmit}
         ref={formRef}

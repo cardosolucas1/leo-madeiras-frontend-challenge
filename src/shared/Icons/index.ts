@@ -1,3 +1,2 @@
-import { BsInfoCircle } from 'react-icons/bs'
-
-export { BsInfoCircle }
+export { BsInfoCircle } from 'react-icons/bs'
+export { AiFillSetting } from 'react-icons/ai'
