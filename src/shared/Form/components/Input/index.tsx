@@ -49,6 +49,16 @@ const Input: React.FC<InputProps> = ({ label, name, iconRight, ...props }) => {
           isInvalid={!!error && !isFocused}
           defaultValue={defaultValue}
           onFocus={handleInputFocus}
+          borderRadius="0.125rem"
+          bg="#264653"
+          opacity="0.37"
+          color="white"
+          h="3rem"
+          _placeholder={{
+            color: '#a0a0a0',
+            fontSize: '14px'
+          }}
+          errorBorderColor="#d4040468"
           {...props}
         />
         {iconRight && <InputRightElement children={iconRight} />}
