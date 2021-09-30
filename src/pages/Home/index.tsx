@@ -8,20 +8,34 @@ export interface Inputs {
   label: string
   name: string
   placeholder: string
+  mask: string | RegExp | string[]
+  type?: string
 }
 
 const inputs: Inputs[] = [
-  { label: 'Qual seu nome?', placeholder: 'Uzumaki Naruto', name: 'name' },
-  { label: 'E seu CPF?', placeholder: '000.000.000-00', name: 'cpf' },
+  {
+    label: 'Qual seu nome?',
+    placeholder: 'Uzumaki Naruto',
+    name: 'name',
+    mask: ''
+  },
+  {
+    label: 'E seu CPF?',
+    placeholder: '000.000.000-00',
+    name: 'cpf',
+    mask: '999.999.999-99'
+  },
   {
     label: 'Telefone pra contato?',
     placeholder: '(11) 1111-1111',
-    name: 'phone'
+    name: 'phone',
+    mask: '(99) 9999-9999'
   },
   {
     label: 'Pra finalizar, seu e-mail',
     placeholder: 'exemplo@email.com',
-    name: 'email'
+    name: 'email',
+    mask: ['*', '@', '*', '.com']
   }
 ]
 
@@ -48,7 +62,7 @@ const Home: React.FC = () => {
         justifyContent="center"
       >
         <Box alignSelf="center" width={['90%']} maxW="26rem">
-          {inputs.map(({ label, name, placeholder }) => (
+          {inputs.map(({ label, name, placeholder, mask, ...props }) => (
             <Box
               d="flex"
               w="100%"
@@ -64,12 +78,14 @@ const Home: React.FC = () => {
               }}
             >
               <Input
+                mask={mask}
                 color="#264653"
                 bg="rgb(38, 70, 83, 0.37)"
                 placeholder={placeholder}
                 name={name}
                 label={label}
                 w="90%"
+                {...props}
               />
             </Box>
           ))}
