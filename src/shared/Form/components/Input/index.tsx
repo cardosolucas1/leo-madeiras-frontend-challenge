@@ -16,9 +16,18 @@ export interface InputProps extends Props {
   label?: string
   iconRight?: React.ReactNode
   name: string
+  bg: string
+  color: string
 }
 
-const Input: React.FC<InputProps> = ({ label, name, iconRight, ...props }) => {
+const Input: React.FC<InputProps> = ({
+  label,
+  name,
+  iconRight,
+  bg,
+  color,
+  ...props
+}) => {
   const inputRef = useRef(null)
 
   const { fieldName, defaultValue, error, registerField } = useField(name)
@@ -39,26 +48,39 @@ const Input: React.FC<InputProps> = ({ label, name, iconRight, ...props }) => {
     <FormControl>
       <InputGroup d="flex" flexDir="column">
         {label && (
-          <FormLabel fontSize="1.125rem" fontWeight="400">
+          <FormLabel
+            fontSize="1.125rem"
+            fontWeight="700"
+            color={color}
+            mb="0.5rem"
+          >
             {label}
           </FormLabel>
         )}
         <InputUI
-          data-testid="form-input"
           ref={inputRef}
+          data-testid="form-input"
           isInvalid={!!error && !isFocused}
           defaultValue={defaultValue}
           onFocus={handleInputFocus}
+          bg={bg}
+          border="1px solid#F4A261"
           borderRadius="0.125rem"
-          bg="#264653"
-          opacity="0.37"
+          padding="0.5rem"
           color="white"
-          h="3rem"
+          outline="0"
+          h={['1.5rem', '2rem']}
           _placeholder={{
-            color: '#a0a0a0',
-            fontSize: '14px'
+            color: 'white',
+            fontStyle: 'italic',
+            opacity: '0.5'
           }}
-          errorBorderColor="#d4040468"
+          _hover={{
+            borderColor: '#2A9D8F'
+          }}
+          _focus={{
+            borderColor: '#264653'
+          }}
           {...props}
         />
         {iconRight && <InputRightElement children={iconRight} />}
