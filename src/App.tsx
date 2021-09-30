@@ -1,7 +1,15 @@
 import React from 'react'
 
+import Routes from './routes'
+
+import { ChakraProvider } from './layout/Provider'
+
 const App: React.FC = () => {
-  return <div className="App"></div>
+  return (
+    <ChakraProvider>
+      <Routes />
+    </ChakraProvider>
+  )
 }
 
 export default App
