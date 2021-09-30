@@ -38,7 +38,11 @@ const Input: React.FC<InputProps> = ({ label, name, iconRight, ...props }) => {
   return (
     <FormControl>
       <InputGroup d="flex" flexDir="column">
-        {label && <FormLabel>{label}</FormLabel>}
+        {label && (
+          <FormLabel fontSize="1.125rem" fontWeight="400">
+            {label}
+          </FormLabel>
+        )}
         <InputUI
           data-testid="form-input"
           ref={inputRef}

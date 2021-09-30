@@ -6,7 +6,7 @@ import { ChakraProvider } from './layout/Provider'
 
 const App: React.FC = () => {
   return (
-    <ChakraProvider>
+    <ChakraProvider resetCSS>
       <Routes />
     </ChakraProvider>
   )
