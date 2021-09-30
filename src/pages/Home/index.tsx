@@ -45,13 +45,27 @@ const Home: React.FC = () => {
       >
         <Box alignSelf="center" width={['90%']} maxW="26rem">
           {inputs.map(({ label, name, placeholder }) => (
-            <Box key={name} mb="4rem">
+            <Box
+              d="flex"
+              w="100%"
+              key={name}
+              _before={{
+                content: '""',
+                display: 'block',
+                width: '2px',
+                marginRight: '0.9375rem',
+                height: '9rem',
+                background: name.includes('a') ? 'white' : '#264653',
+                left: '200px'
+              }}
+            >
               <Input
                 color="#264653"
                 bg="rgb(38, 70, 83, 0.37)"
                 placeholder={placeholder}
                 name={name}
                 label={label}
+                w="90%"
               />
             </Box>
           ))}
@@ -63,6 +77,9 @@ const Home: React.FC = () => {
             borderRadius="0.125rem"
             cursor="pointer"
             variant="ghost"
+            mt="1rem"
+            w="90%"
+            ml="0.9375rem"
           >
             Enviar
           </Button>

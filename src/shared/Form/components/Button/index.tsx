@@ -10,7 +10,6 @@ const Button: React.FC<ButtonProps> = ({ children, ...rest }) => {
       color="white"
       fontWeight="bold"
       boxShadow="none!important"
-      width="100%"
       h="3rem"
       mb="3rem"
       {...rest}

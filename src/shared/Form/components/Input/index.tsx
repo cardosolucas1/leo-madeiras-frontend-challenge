@@ -45,7 +45,7 @@ const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField])
 
   return (
-    <FormControl>
+    <FormControl w="inherit">
       <InputGroup d="flex" flexDir="column">
         {label && (
           <FormLabel
@@ -53,6 +53,16 @@ const Input: React.FC<InputProps> = ({
             fontWeight="700"
             color={color}
             mb="0.5rem"
+            _before={{
+              content: '""',
+              display: 'block',
+              width: '15px',
+              height: '15px',
+              borderRadius: '10%',
+              background: name.includes('a') ? 'white' : '#264653',
+              position: 'absolute',
+              left: '-23px'
+            }}
           >
             {label}
           </FormLabel>
@@ -72,7 +82,6 @@ const Input: React.FC<InputProps> = ({
           h={['1.5rem', '2rem']}
           _placeholder={{
             color: 'white',
-            fontStyle: 'italic',
             opacity: '0.5'
           }}
           _hover={{
