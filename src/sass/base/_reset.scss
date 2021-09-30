@@ -1,0 +1,11 @@
+@import '../abstracts/variables';
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-image: linear-gradient(
+    to bottom,
+    $secondaryColor,
+    $lightSecondaryColor,
+    $tertiaryColor
+  );
+}
