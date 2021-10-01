@@ -2,7 +2,8 @@ import React from 'react'
 
 import { render, fireEvent } from '../../../test-utils'
 
-import { Input, Form } from '../../../../shared'
+import { Form } from '../../../../shared'
+import Input from '../../../../shared/Form/components/Input'
 
 import * as unform from '@unform/core'
 
@@ -15,6 +16,7 @@ describe('Input component should work properly', () => {
     const wrapper = render(
       <Form onSubmit={onSubmit}>
         <Input
+          mask={''}
           name={inputName}
           placeholder={placeholder}
           bg="blue"
