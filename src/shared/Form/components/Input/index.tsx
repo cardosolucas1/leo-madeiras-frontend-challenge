@@ -18,7 +18,7 @@ export interface InputProps extends Props {
   name: string
   bg: string
   color: string
-  mask: string
+  mask?: string | RegExp | string[]
 }
 
 const Input: React.FC<InputProps> = ({
@@ -69,6 +69,7 @@ const Input: React.FC<InputProps> = ({
           </FormLabel>
         )}
         <InputUI
+          maskChar={null}
           ref={inputRef}
           data-testid="form-input"
           isInvalid={!!error && !isFocused}

@@ -16,7 +16,7 @@ export interface Inputs {
   label: string
   name: string
   placeholder: string
-  mask?: string
+  mask: string
   type?: string
 }
 
@@ -42,7 +42,8 @@ const inputs: Inputs[] = [
   {
     label: 'Pra finalizar, seu e-mail',
     placeholder: 'exemplo@email.com',
-    name: 'email'
+    name: 'email',
+    mask: ''
   }
 ]
 
@@ -58,10 +59,10 @@ const Home: React.FC = () => {
 
   const onSubmit = useCallback(async (data: InputsKeys) => {
     try {
+      console.log(data)
       await formValidator.validate(data, {
         abortEarly: false
       })
-      console.log(data)
 
       createRegister({
         cpf: data.cpf,
@@ -113,7 +114,6 @@ const Home: React.FC = () => {
               }}
             >
               <Input
-                mask={''}
                 color="#264653"
                 bg="rgb(38, 70, 83, 0.37)"
                 placeholder={placeholder}
