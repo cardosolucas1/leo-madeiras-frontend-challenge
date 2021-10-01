@@ -69,7 +69,6 @@ const Input: React.FC<InputProps> = ({
           </FormLabel>
         )}
         <InputUI
-          maskChar={null}
           ref={inputRef}
           data-testid="form-input"
           isInvalid={!!error && !isFocused}
@@ -78,10 +77,10 @@ const Input: React.FC<InputProps> = ({
           bg={bg}
           border="1px solid#F4A261"
           borderRadius="0.125rem"
-          padding="0.5rem"
+          padding="1rem"
           color="white"
           outline="0"
-          h={['1.5rem', '2rem']}
+          h={['2.5rem', '3rem']}
           _placeholder={{
             color: 'white',
             opacity: '0.5'

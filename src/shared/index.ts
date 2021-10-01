@@ -11,8 +11,10 @@ import { Form as UnForm } from '@unform/web'
 import { FormHandles } from '@unform/core'
 
 export { default as Box } from './Box'
+
 export * from './Form/components'
 export * from './Icons'
+export * from './Modal'
 
 export const Form = chakra(UnForm)
 

@@ -1,7 +1,6 @@
 import React, { useRef, useCallback } from 'react'
 
 import { Box, Input, Form, FormHandles, Button } from '../../shared'
-
 import { Header } from '../../components'
 
 import formValidator from '../../validators/formValidator'
@@ -58,6 +57,7 @@ const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
 
   const onSubmit = useCallback(async (data: InputsKeys) => {
+    formRef?.current?.setErrors({})
     try {
       console.log(data)
       await formValidator.validate(data, {
@@ -87,7 +87,7 @@ const Home: React.FC = () => {
       justifyContent="center"
       alignItems="center"
       flexDir="column"
-      mt="5rem"
+      pt="5rem"
     >
       <Header />
       <Form
@@ -119,7 +119,7 @@ const Home: React.FC = () => {
                 placeholder={placeholder}
                 name={name}
                 label={label}
-                w="90%"
+                w="95%"
                 {...props}
               />
             </Box>
@@ -133,8 +133,12 @@ const Home: React.FC = () => {
             cursor="pointer"
             variant="ghost"
             mt="1rem"
-            w="90%"
+            w="92%"
             ml="0.9375rem"
+            _hover={{
+              background: '#e9c46a',
+              color: 'white'
+            }}
           >
             Enviar
           </Button>
