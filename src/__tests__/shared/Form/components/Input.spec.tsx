@@ -15,6 +15,7 @@ describe('Input component should work properly', () => {
     const wrapper = render(
       <Form onSubmit={onSubmit}>
         <Input
+          mask={''}
           name={inputName}
           placeholder={placeholder}
           bg="blue"
