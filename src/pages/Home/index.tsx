@@ -4,11 +4,19 @@ import { Box, Input, Form, FormHandles, Button } from '../../shared'
 
 import { Header } from '../../components'
 
+import formValidator from '../../validators/formValidator'
+
+import { ValidationError } from 'yup'
+
+import { getValidationErrors } from '../../utils/getValidationErrors'
+
+import { createRegister } from '../../services/createRegister'
+
 export interface Inputs {
   label: string
   name: string
   placeholder: string
-  mask: string | RegExp | string[]
+  mask?: string
   type?: string
 }
 
@@ -34,14 +42,41 @@ const inputs: Inputs[] = [
   {
     label: 'Pra finalizar, seu e-mail',
     placeholder: 'exemplo@email.com',
-    name: 'email',
-    mask: ['*', '@', '*', '.com']
+    name: 'email'
   }
 ]
 
+export interface InputsKeys {
+  name: string
+  email: string
+  phone: string
+  cpf: string
+}
+
 const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
-  const onSubmit = useCallback((data) => console.log(data), [])
+
+  const onSubmit = useCallback(async (data: InputsKeys) => {
+    try {
+      await formValidator.validate(data, {
+        abortEarly: false
+      })
+      console.log(data)
+
+      createRegister({
+        cpf: data.cpf,
+        nome: data.name,
+        email: data.email,
+        telefone: data.phone
+      })
+    } catch (error) {
+      if (error instanceof ValidationError) {
+        const errors = getValidationErrors(error)
+        formRef?.current?.setErrors(errors)
+        return
+      }
+    }
+  }, [])
 
   return (
     <Box
@@ -62,7 +97,7 @@ const Home: React.FC = () => {
         justifyContent="center"
       >
         <Box alignSelf="center" width={['90%']} maxW="26rem">
-          {inputs.map(({ label, name, placeholder, mask, ...props }) => (
+          {inputs.map(({ label, name, placeholder, ...props }) => (
             <Box
               d="flex"
               w="100%"
@@ -78,7 +113,7 @@ const Home: React.FC = () => {
               }}
             >
               <Input
-                mask={mask}
+                mask={''}
                 color="#264653"
                 bg="rgb(38, 70, 83, 0.37)"
                 placeholder={placeholder}

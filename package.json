@@ -19,6 +19,7 @@
     "@types/react-router": "^5.1.16",
     "@types/react-router-dom": "^5.3.0",
     "@types/sass": "^1.16.1",
+    "@types/yup": "^0.29.13",
     "@unform/core": "^2.1.5",
     "@unform/web": "^2.1.5",
     "babel-core": "^6.26.3",
@@ -34,7 +35,8 @@
     "sass": "^1.42.1",
     "ts-jest": "^27.0.5",
     "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

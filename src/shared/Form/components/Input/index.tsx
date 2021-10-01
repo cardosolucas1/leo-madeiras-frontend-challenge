@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState, useCallback } from 'react'
 
 import { Input as InputUI, InputProps as Props } from '@chakra-ui/react'
 
-import InputMask from 'react-input-mask'
 import {
   FormControl,
   InputGroup,
@@ -19,7 +18,7 @@ export interface InputProps extends Props {
   name: string
   bg: string
   color: string
-  mask: string | RegExp | string[]
+  mask: string
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,7 +27,6 @@ const Input: React.FC<InputProps> = ({
   iconRight,
   bg,
   color,
-  mask,
   ...props
 }) => {
   const inputRef = useRef(null)
@@ -71,9 +69,6 @@ const Input: React.FC<InputProps> = ({
           </FormLabel>
         )}
         <InputUI
-          as={InputMask}
-          mask={mask}
-          maskChar={null}
           ref={inputRef}
           data-testid="form-input"
           isInvalid={!!error && !isFocused}
@@ -101,7 +96,16 @@ const Input: React.FC<InputProps> = ({
         {iconRight && <InputRightElement children={iconRight} />}
       </InputGroup>
       {!!error && (
-        <FormHelperText data-testid="input-error">{error}</FormHelperText>
+        <FormHelperText
+          w="90%"
+          color="#361107"
+          fontWeight="bold"
+          data-testid="input-error"
+          textAlign="end"
+          mt="4"
+        >
+          {error}
+        </FormHelperText>
       )}
     </FormControl>
   )
