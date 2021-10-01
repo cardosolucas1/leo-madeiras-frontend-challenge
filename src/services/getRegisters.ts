@@ -5,10 +5,13 @@ export interface Register {
   email: string
 }
 
-export const createRegister = (data: Register): Register[] => {
+export const getRegisters = (cpf?: string): Register[] => {
   const registers: Register[] = JSON.parse(
     localStorage.getItem('registers') || '[]'
   )
-  localStorage.setItem('registers', JSON.stringify([...registers, data]))
-  return [...registers, data]
+  if (cpf) {
+    return registers.filter((r) => r.cpf === cpf)
+  }
+
+  return registers
 }

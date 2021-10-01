@@ -10,7 +10,7 @@ import { ValidationError } from 'yup'
 import { getValidationErrors } from '../../utils/getValidationErrors'
 
 import { createRegister } from '../../services/createRegister'
-
+import { getRegisters } from '../../services/getRegisters'
 export interface Inputs {
   label: string
   name: string
@@ -58,8 +58,14 @@ const Home: React.FC = () => {
 
   const onSubmit = useCallback(async (data: InputsKeys) => {
     formRef?.current?.setErrors({})
+    if (
+      getRegisters()
+        .map((e) => e.cpf)
+        .includes(data.cpf)
+    ) {
+      return alert('CPF já cadastrado')
+    }
     try {
-      console.log(data)
       await formValidator.validate(data, {
         abortEarly: false
       })
@@ -137,6 +143,10 @@ const Home: React.FC = () => {
             ml="0.9375rem"
             _hover={{
               background: '#e9c46a',
+              color: 'white'
+            }}
+            _active={{
+              background: '#264653',
               color: 'white'
             }}
           >

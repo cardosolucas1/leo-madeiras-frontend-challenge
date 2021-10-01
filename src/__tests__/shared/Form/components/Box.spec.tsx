@@ -2,7 +2,7 @@ import React from 'react'
 
 import { render } from '../../../test-utils'
 
-import { Box } from '../../../../shared'
+import Box from '../../../../shared/Box'
 
 describe('Box shared component should render correctly', () => {
   const children = 'children'

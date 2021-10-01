@@ -99,7 +99,8 @@ const Input: React.FC<InputProps> = ({
         <FormHelperText
           w="90%"
           color="#361107"
-          fontWeight="bold"
+          fontWeight="700"
+          fontSize="1rem"
           data-testid="input-error"
           textAlign="end"
           mt="4"

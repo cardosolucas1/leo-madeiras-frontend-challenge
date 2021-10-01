@@ -2,7 +2,7 @@ import React from 'react'
 
 import { render, fireEvent } from '../../test-utils'
 
-import { Home } from '../../../pages'
+import Home from '../../../pages/Home'
 
 import * as components from '../../../shared'
 

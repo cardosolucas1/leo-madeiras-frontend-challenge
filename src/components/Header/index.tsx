@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   const modalRef = useRef<ModalConfigHandler>(null)
 
   return (
-    <Box d="flex" justifyContent="flex-end" maxW="24rem" w="100%" mb="2rem">
+    <Box d="flex" justifyContent="flex-end" maxW="24rem" w="80%" mb="2rem">
       <ModalConfig ref={modalRef} />
       <Box
         as={AiFillSetting}
