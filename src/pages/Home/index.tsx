@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef, useCallback } from 'react'
 
 import { Box, Input, Form, FormHandles, Button } from '../../shared'
 import { Header } from '../../components'
 
-import formValidator from '../../validators/formValidator'
+import formValidator from '../../validators/yup/formValidator'
 import { ValidationError } from 'yup'
 import { getValidationErrors } from '../../utils/getValidationErrors'
 import { cpf as cpfValidator } from 'cpf-cnpj-validator'
@@ -15,6 +17,8 @@ import { getRegisters } from '../../services/getRegisters'
 import { useHistory } from 'react-router'
 
 import { inputs } from '../../__mocks__/inputs'
+
+import { onSubmitFormValidator } from '../../validators/onSubmitFormValidator'
 
 export interface InputsKeys {
   name: string
@@ -28,49 +32,14 @@ const Home: React.FC = () => {
   const history = useHistory()
 
   const onSubmit = useCallback(async (data: InputsKeys) => {
-    const cpf = returnOnlyNumbers(data.cpf)
-    const phone = returnOnlyNumbers(data.phone)
-
-    formRef?.current?.setErrors({})
-
-    if (
-      getRegisters()
-        .map((e) => e.cpf)
-        .includes(cpf)
-    ) {
-      return formRef?.current?.setErrors({ cpf: 'CPF já cadastrado' })
-    }
-
-    try {
-      await formValidator.validate(
-        {
-          ...data,
-          cpf,
-          phone
-        },
-        {
-          abortEarly: false
-        }
-      )
-
-      if (!cpfValidator.isValid(cpf))
-        return formRef?.current?.setErrors({ cpf: 'CPF inválido' })
-
-      createRegister({
-        cpf,
-        nome: data.name,
-        email: data.email,
-        telefone: phone
-      })
-
-      history.push('/registers')
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        const errors = getValidationErrors(error)
-        formRef?.current?.setErrors(errors)
-        return
+    await onSubmitFormValidator({
+      data,
+      formRef,
+      success: ({ cpf, email, phone, name }: InputsKeys) => {
+        createRegister({ nome: name, cpf, email, telefone: phone })
+        history.push('/register')
       }
-    }
+    })
   }, [])
 
   return (
