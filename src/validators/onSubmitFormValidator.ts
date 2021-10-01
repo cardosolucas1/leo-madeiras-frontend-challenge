@@ -33,7 +33,7 @@ export const onSubmitFormValidator = async ({
       .map((e) => e.cpf)
       .includes(cpf)
   ) {
-    return formRef?.current?.setErrors({ cpf: 'CPF já cadastrado' })
+    return formRef.current?.setErrors({ cpf: 'CPF já cadastrado' })
   }
 
   try {
@@ -49,7 +49,7 @@ export const onSubmitFormValidator = async ({
     )
 
     if (!cpfValidator.isValid(cpf))
-      return formRef?.current?.setErrors({ cpf: 'CPF inválido' })
+      return formRef.current?.setErrors({ cpf: 'CPF inválido' })
     return success({
       ...data,
       cpf,

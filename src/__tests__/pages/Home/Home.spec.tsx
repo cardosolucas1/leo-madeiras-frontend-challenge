@@ -5,6 +5,25 @@ import { render, fireEvent } from '../../test-utils'
 import Home from '../../../pages/Home'
 
 import * as components from '../../../shared'
+import * as validators from '../../../validators/onSubmitFormValidator'
+
+import * as router from 'react-router'
+
+jest.mock('react-router', () => {
+  const reactRouter = jest.requireActual('react-router')
+  return {
+    ...reactRouter,
+    useHistory: jest.fn(() => ({ push: jest.fn() }))
+  }
+})
+
+jest.mock('../../../services/createRegister', () => {
+  const rest = jest.requireActual('../../../services/createRegister')
+  return {
+    ...rest,
+    createRegister: jest.fn()
+  }
+})
 
 jest.mock('../../../shared', () => {
   const shared = jest.requireActual('../../../shared')
@@ -46,10 +65,20 @@ describe('Home page should work properly', () => {
     expect(queryAllByTestId('mocked-input').length).toEqual(4)
   })
 
-  it('Should call onSubmit through the form', () => {
+  it('Should call onSubmit through the form', async () => {
+    const push = jest.fn()
+    jest.spyOn(router, 'useHistory').mockImplementation(() => ({ push } as any))
+    const validateForm = jest.fn(({ success }) =>
+      success({ cpf: '', email: '', phone: '', name: '' })
+    )
+
+    jest
+      .spyOn(validators, 'onSubmitFormValidator')
+      .mockImplementation(validateForm)
     const submit = jest.fn((callback) =>
       callback({}, {} as components.FormHandles)
     )
+
     jest.spyOn(components, 'Form').mockImplementation(
       jest.fn(({ onSubmit }) => (
         <button data-testid="form-btn" onClick={() => submit(onSubmit)}>
@@ -60,8 +89,10 @@ describe('Home page should work properly', () => {
 
     const { getByTestId } = setup()
 
-    fireEvent.click(getByTestId('form-btn'))
+    await fireEvent.click(getByTestId('form-btn'))
 
     expect(submit).toHaveBeenCalledTimes(1)
+    expect(validateForm).toHaveBeenCalled()
+    expect(push).toHaveBeenLastCalledWith('/registers')
   })
 })
