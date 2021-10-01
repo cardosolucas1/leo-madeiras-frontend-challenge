@@ -12,6 +12,8 @@ import {
 
 import { useField } from '@unform/core'
 
+import InputMask from 'react-input-mask'
+
 export interface InputProps extends Props {
   label?: string
   iconRight?: React.ReactNode
@@ -32,6 +34,7 @@ const Input: React.FC<InputProps> = ({
   const inputRef = useRef(null)
 
   const { fieldName, defaultValue, error, registerField } = useField(name)
+  const [mask, setMask] = useState('')
 
   const [isFocused, setIsFocused] = useState(false)
 
@@ -41,9 +44,14 @@ const Input: React.FC<InputProps> = ({
     registerField({
       name: fieldName,
       ref: inputRef.current,
-      path: 'value'
+      path: 'props.value'
     })
   }, [fieldName, registerField])
+
+  const handleMask = (e: React.FormEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget
+    return setMask(value)
+  }
 
   return (
     <FormControl w="inherit">
@@ -69,12 +77,15 @@ const Input: React.FC<InputProps> = ({
           </FormLabel>
         )}
         <InputUI
+          as={InputMask}
           ref={inputRef}
+          onChange={handleMask}
           data-testid="form-input"
           isInvalid={!!error && !isFocused}
           defaultValue={defaultValue}
           onFocus={handleInputFocus}
           bg={bg}
+          value={mask}
           border="1px solid#F4A261"
           borderRadius="0.125rem"
           padding="1rem"

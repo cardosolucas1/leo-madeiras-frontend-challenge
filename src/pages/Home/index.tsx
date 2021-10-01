@@ -4,47 +4,17 @@ import { Box, Input, Form, FormHandles, Button } from '../../shared'
 import { Header } from '../../components'
 
 import formValidator from '../../validators/formValidator'
-
 import { ValidationError } from 'yup'
-
 import { getValidationErrors } from '../../utils/getValidationErrors'
+import { cpf as cpfValidator } from 'cpf-cnpj-validator'
+import { returnOnlyNumbers } from '../../utils/returnOnlyNumbers'
 
 import { createRegister } from '../../services/createRegister'
 import { getRegisters } from '../../services/getRegisters'
-export interface Inputs {
-  label: string
-  name: string
-  placeholder: string
-  mask: string
-  type?: string
-}
 
-const inputs: Inputs[] = [
-  {
-    label: 'Qual seu nome?',
-    placeholder: 'Uzumaki Naruto',
-    name: 'name',
-    mask: ''
-  },
-  {
-    label: 'E seu CPF?',
-    placeholder: '000.000.000-00',
-    name: 'cpf',
-    mask: '999.999.999-99'
-  },
-  {
-    label: 'Telefone pra contato?',
-    placeholder: '(11) 1111-1111',
-    name: 'phone',
-    mask: '(99) 9999-9999'
-  },
-  {
-    label: 'Pra finalizar, seu e-mail',
-    placeholder: 'exemplo@email.com',
-    name: 'email',
-    mask: ''
-  }
-]
+import { useHistory } from 'react-router'
+
+import { inputs } from '../../__mocks__/inputs'
 
 export interface InputsKeys {
   name: string
@@ -55,27 +25,45 @@ export interface InputsKeys {
 
 const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
+  const history = useHistory()
 
   const onSubmit = useCallback(async (data: InputsKeys) => {
+    const cpf = returnOnlyNumbers(data.cpf)
+    const phone = returnOnlyNumbers(data.phone)
+
     formRef?.current?.setErrors({})
+
     if (
       getRegisters()
         .map((e) => e.cpf)
-        .includes(data.cpf)
+        .includes(cpf)
     ) {
-      return alert('CPF já cadastrado')
+      return formRef?.current?.setErrors({ cpf: 'CPF já cadastrado' })
     }
+
     try {
-      await formValidator.validate(data, {
-        abortEarly: false
-      })
+      await formValidator.validate(
+        {
+          ...data,
+          cpf,
+          phone
+        },
+        {
+          abortEarly: false
+        }
+      )
+
+      if (!cpfValidator.isValid(cpf))
+        return formRef?.current?.setErrors({ cpf: 'CPF inválido' })
 
       createRegister({
-        cpf: data.cpf,
+        cpf,
         nome: data.name,
         email: data.email,
-        telefone: data.phone
+        telefone: phone
       })
+
+      history.push('/registers')
     } catch (error) {
       if (error instanceof ValidationError) {
         const errors = getValidationErrors(error)

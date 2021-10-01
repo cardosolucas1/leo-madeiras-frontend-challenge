@@ -19,6 +19,9 @@ const Header: React.FC = () => {
         p="1"
         borderRadius="2px"
         cursor="pointer"
+        _hover={{
+          background: 'rgb(38, 70, 83)'
+        }}
         onClick={() => modalRef.current?.onOpen()}
       />
     </Box>
