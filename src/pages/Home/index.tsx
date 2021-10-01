@@ -1,25 +1,15 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef, useCallback } from 'react'
 
 import { Box, Input, Form, FormHandles, Button } from '../../shared'
 import { Header } from '../../components'
 
-import formValidator from '../../validators/yup/formValidator'
-import { ValidationError } from 'yup'
-import { getValidationErrors } from '../../utils/getValidationErrors'
-import { cpf as cpfValidator } from 'cpf-cnpj-validator'
-import { returnOnlyNumbers } from '../../utils/returnOnlyNumbers'
-
 import { createRegister } from '../../services/createRegister'
-import { getRegisters } from '../../services/getRegisters'
 
 import { useHistory } from 'react-router'
 
 import { inputs } from '../../__mocks__/inputs'
 
 import { onSubmitFormValidator } from '../../validators/onSubmitFormValidator'
-
 export interface InputsKeys {
   name: string
   email: string
@@ -37,7 +27,7 @@ const Home: React.FC = () => {
       formRef,
       success: ({ cpf, email, phone, name }: InputsKeys) => {
         createRegister({ nome: name, cpf, email, telefone: phone })
-        history.push('/register')
+        history.push('/registers')
       }
     })
   }, [])
