@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { render } from '../test-utils'
+import { render, fireEvent } from '../test-utils'
 
 import Header from '../../components/Header'
 
@@ -20,8 +20,10 @@ describe('Header component should render correctly', () => {
     expect(queryByTestId('config-button')).toBeInTheDocument()
   })
 
-  it('Should render a modal on document', () => {
-    const { queryByText } = setup()
+  it('Should render a modal on document when', () => {
+    const { queryByText, getByTestId } = setup()
+
+    fireEvent.click(getByTestId('config-button'))
     expect(queryByText('Modal Config', { exact: false })).toBeInTheDocument()
   })
 })
