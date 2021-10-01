@@ -41,17 +41,22 @@ const ModalConfig = forwardRef((_props, ref) => {
           <ModalCloseButton data-testid="modal-button-closed" color="#e76f51" />
           <ModalBody d="flex" flexDir="column" justifyContent="flex-end">
             <Button
+              data-testid="register-btn"
               mb="5"
               background="#e76f51"
               _hover={{
                 background: '#e9c46a',
                 color: 'white'
               }}
-              onClick={() => history.push('/registers')}
+              onClick={() => {
+                history.push('/registers')
+                onClose()
+              }}
             >
               Registros anteriores
             </Button>
             <Button
+              data-testid="close-modal-btn"
               color="#e76f51"
               border="1px solid"
               borderColor="#e76f51"

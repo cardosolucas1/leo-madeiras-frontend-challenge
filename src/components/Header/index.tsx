@@ -11,6 +11,7 @@ const Header: React.FC = () => {
     <Box d="flex" justifyContent="flex-end" maxW="24rem" w="80%" mb="2rem">
       <ModalConfig ref={modalRef} />
       <Box
+        data-testid="config-button"
         as={AiFillSetting}
         size="2.5rem"
         color="#F4A261"
