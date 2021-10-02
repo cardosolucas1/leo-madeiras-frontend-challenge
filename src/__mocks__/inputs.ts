@@ -3,7 +3,6 @@ export interface Inputs {
   name: string
   placeholder: string
   mask: string
-  type?: string
 }
 
 export const inputs: Inputs[] = [
