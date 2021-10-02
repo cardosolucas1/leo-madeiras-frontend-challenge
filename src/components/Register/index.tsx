@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Register } from '../../services/getRegisters'
 
 import {
@@ -15,9 +15,13 @@ import {
   FaRegEdit
 } from '../../shared'
 
+import ModalConfig, { ModalConfigHandler } from '../ModalConfig'
+
 export interface RegisterProps {
   title: string
   data: Register
+  onUpdateRegister: (data: Register) => void
+  onDeleteRegister: (cpf: Register['cpf']) => void
 }
 
 const masks = {
@@ -27,9 +31,25 @@ const masks = {
   nome: ''
 }
 
-const RegisterUI: React.FC<RegisterProps> = ({ data, title }) => {
+const RegisterUI: React.FC<RegisterProps> = ({
+  data,
+  title,
+  onDeleteRegister,
+  onUpdateRegister
+}) => {
+  const modalRef = useRef<ModalConfigHandler>(null)
+
   return (
     <Box w="100%" my="1rem">
+      <ModalConfig
+        ref={modalRef}
+        title="Deseja apagar este registro?"
+        onPrimaryButtonClick={() => {
+          onDeleteRegister(data.cpf)
+          modalRef.current?.onClose()
+        }}
+        primaryButtonText={'Sim'}
+      />
       <Accordion allowToggle borderRadius="sm" allowMultiple={false}>
         <AccordionItem bg="white" border="0" borderRadius="2px">
           <Box as="h2">
@@ -66,6 +86,7 @@ const RegisterUI: React.FC<RegisterProps> = ({ data, title }) => {
             </Form>
             <Box w="100%" d="flex" flexDir="row">
               <Box
+                onClick={() => modalRef.current?.onOpen()}
                 size={'2rem'}
                 as={MdDelete}
                 color="#f4a261"
@@ -73,6 +94,7 @@ const RegisterUI: React.FC<RegisterProps> = ({ data, title }) => {
                 cursor="pointer"
               />
               <Box
+                onClick={() => onUpdateRegister(data)}
                 size={'1.8rem'}
                 as={FaRegEdit}
                 color="#f4a261"

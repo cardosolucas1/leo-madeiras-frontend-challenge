@@ -1,4 +1,6 @@
-import React, { useRef } from 'react'
+import React, { useRef, useMemo } from 'react'
+
+import { useHistory } from 'react-router'
 
 import { Box } from '../../shared'
 import { BoxProps } from '../../shared/Box'
@@ -7,10 +9,18 @@ import ModalConfig, { ModalConfigHandler } from '../ModalConfig'
 
 const Header: React.FC<BoxProps> = ({ as, ...props }) => {
   const modalRef = useRef<ModalConfigHandler>(null)
+  const history = useHistory()
+
+  const isHome = useMemo(() => history.location.pathname === '/', [history])
 
   return (
     <Box d="flex" justifyContent="flex-end" maxW="27rem" mb="2rem">
-      <ModalConfig ref={modalRef} />
+      <ModalConfig
+        ref={modalRef}
+        title="Navegar para"
+        onPrimaryButtonClick={() => history.push(isHome ? '/registers' : '/')}
+        primaryButtonText={isHome ? 'Registros' : 'Formulário'}
+      />
       <Box
         as={as}
         data-testid="config-button"
