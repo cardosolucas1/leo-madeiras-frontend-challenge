@@ -43,7 +43,7 @@ const ModalConfig = forwardRef((_props, ref) => {
           <ModalCloseButton data-testid="modal-button-closed" color="#e76f51" />
           <ModalBody d="flex" flexDir="column" justifyContent="flex-end">
             <Button
-              data-testid="register-btn"
+              data-testid="modal-btn"
               mb="5"
               background="#e76f51"
               _hover={{

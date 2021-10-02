@@ -22,7 +22,13 @@ jest.mock('../../shared', () => {
 
 jest.mock('react-router', () => {
   const rest = jest.requireActual('react-router')
-  return { ...rest, useHistory: jest.fn(() => ({ push: jest.fn() })) }
+  return {
+    ...rest,
+    useHistory: jest.fn(() => ({
+      push: jest.fn(),
+      location: { pathname: '/' }
+    }))
+  }
 })
 
 describe('ModalConfig component should render correctly', () => {
@@ -33,20 +39,32 @@ describe('ModalConfig component should render correctly', () => {
 
   it('Should render two buttons on screen', () => {
     const { queryByTestId } = setup()
-    expect(queryByTestId('register-btn')).toBeInTheDocument()
+    expect(queryByTestId('modal-btn')).toBeInTheDocument()
     expect(queryByTestId('close-modal-btn')).toBeInTheDocument()
   })
 
   it('Should call modal`s handlers when buttons is clicked', () => {
     const push = jest.fn()
-    jest.spyOn(reactRouter, 'useHistory').mockImplementation(
-      jest.fn(
-        () =>
-          ({
-            push
-          } as any)
+    jest
+      .spyOn(reactRouter, 'useHistory')
+      .mockImplementationOnce(
+        jest.fn(
+          () =>
+            ({
+              push,
+              location: { pathname: '/' }
+            } as any)
+        )
       )
-    )
+      .mockImplementationOnce(
+        jest.fn(
+          () =>
+            ({
+              push,
+              location: { pathname: '/registers' }
+            } as any)
+        )
+      )
     const {
       result: { current: ref }
     } = renderHook(() => useRef<ModalConfigHandler>(null))
@@ -61,14 +79,19 @@ describe('ModalConfig component should render correctly', () => {
           onOpen
         } as any)
     )
-    const { getByTestId } = setup(ref)
+    const { getByTestId, rerender } = setup(ref)
 
     ref.current?.onOpen()
-    fireEvent.click(getByTestId('register-btn'))
+    fireEvent.click(getByTestId('modal-btn'))
     fireEvent.click(getByTestId('close-modal-btn'))
 
     expect(onOpen).toHaveBeenCalled()
     expect(onClose).toHaveBeenCalled()
     expect(push).toHaveBeenCalledWith('/registers')
+
+    rerender(<ModalConfig ref={ref} />)
+    fireEvent.click(getByTestId('modal-btn'))
+
+    expect(push).toHaveBeenCalledWith('/')
   })
 })
