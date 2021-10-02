@@ -1,14 +1,17 @@
 import React, { useMemo } from 'react'
 
+import { useHistory } from 'react-router'
+
 import { Box, IoArrowBackSharp, Text } from '../../shared'
 import { Header, Register } from '../../components'
 
 import { getRegisters } from '../../services/getRegisters'
 
-const Registers: React.FC = () => {
-  const registers = useMemo(() => getRegisters(), [getRegisters])
+import EmptyReport from './components/EmptyReport'
 
-  console.log({ registers })
+const Registers: React.FC = () => {
+  const history = useHistory()
+  const registers = useMemo(() => getRegisters(), [getRegisters])
 
   return (
     <Box
@@ -24,15 +27,7 @@ const Registers: React.FC = () => {
         <Text w="100%" mb="1rem" as="h1" fontWeight={700} fontSize="1.2rem">
           Registros
         </Text>
-        <Register
-          title="Lucas Soares Cardoso"
-          data={{
-            cpf: '70136273182',
-            email: 'email@email.com',
-            nome: 'Lucas Soares',
-            telefone: '9229292329'
-          }}
-        />
+        {!registers.length && <EmptyReport onClick={() => history.push('/')} />}
         {registers.map(({ nome, cpf, telefone, email }, index) => (
           <Register
             key={index}

@@ -12,6 +12,14 @@ const Button: React.FC<ButtonProps> = ({ children, ...rest }) => {
       boxShadow="none!important"
       h="3rem"
       mb="3rem"
+      _hover={{
+        background: '#e9c46a',
+        color: 'white'
+      }}
+      _active={{
+        background: '#264653',
+        color: 'white'
+      }}
       {...rest}
     >
       {children}

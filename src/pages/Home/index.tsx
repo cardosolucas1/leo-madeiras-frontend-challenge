@@ -80,14 +80,6 @@ const Home: React.FC = () => {
             mt="1rem"
             w="96.5%"
             ml="0.9375rem"
-            _hover={{
-              background: '#e9c46a',
-              color: 'white'
-            }}
-            _active={{
-              background: '#264653',
-              color: 'white'
-            }}
           >
             Enviar
           </Button>
