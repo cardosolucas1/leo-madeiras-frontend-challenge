@@ -1,6 +1,13 @@
 import React, { useRef, useCallback } from 'react'
 
-import { Box, Input, Form, FormHandles, Button } from '../../shared'
+import {
+  Box,
+  Input,
+  Form,
+  FormHandles,
+  Button,
+  AiFillSetting
+} from '../../shared'
 import { Header } from '../../components'
 
 import { createRegister } from '../../services/createRegister'
@@ -33,24 +40,10 @@ const Home: React.FC = () => {
   }, [])
 
   return (
-    <Box
-      width="100%"
-      minH="36rem"
-      d="flex"
-      justifyContent="center"
-      alignItems="center"
-      flexDir="column"
-      pt="5rem"
-    >
-      <Header />
-      <Form
-        onSubmit={onSubmit}
-        ref={formRef}
-        w="100%"
-        d="flex"
-        justifyContent="center"
-      >
-        <Box alignSelf="center" width={['90%']} maxW="26rem">
+    <Box w="100%">
+      <Header as={AiFillSetting} />
+      <Form onSubmit={onSubmit} ref={formRef} d="flex" justifyContent="center">
+        <Box alignSelf="center" width={['100%']}>
           {inputs.map(({ label, name, placeholder, ...props }) => (
             <Box
               d="flex"
@@ -72,7 +65,6 @@ const Home: React.FC = () => {
                 placeholder={placeholder}
                 name={name}
                 label={label}
-                w="95%"
                 {...props}
               />
             </Box>
@@ -86,7 +78,7 @@ const Home: React.FC = () => {
             cursor="pointer"
             variant="ghost"
             mt="1rem"
-            w="92%"
+            w="96.5%"
             ml="0.9375rem"
             _hover={{
               background: '#e9c46a',

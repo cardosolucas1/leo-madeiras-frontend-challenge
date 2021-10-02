@@ -15,6 +15,8 @@ export { default as Box } from './Box'
 export * from './Form/components'
 export * from './Icons'
 export * from './Modal'
+export * from './Accordion'
+export * from './Text'
 
 export const Form = chakra(UnForm)
 
