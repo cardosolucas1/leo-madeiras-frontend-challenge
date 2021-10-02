@@ -35,7 +35,7 @@ const Register: React.FC<RegisterProps> = ({ title }) => {
               <AccordionIcon color="#264653" />
             </AccordionButton>
           </Box>
-          <AccordionPanel pb={4} bg="#264653" borderBottomRadius="2px">
+          <AccordionPanel p={2} bg="#264653" borderBottomRadius="2px">
             <Form onSubmit={() => null}>
               <Input
                 border="0"

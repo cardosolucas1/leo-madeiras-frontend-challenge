@@ -1,4 +1,4 @@
-import React, { useImperativeHandle } from 'react'
+import React, { useImperativeHandle, useMemo } from 'react'
 
 import {
   Box,
@@ -30,6 +30,8 @@ const ModalConfig = forwardRef((_props, ref) => {
     }
   })
 
+  const isHome = useMemo(() => history.location.pathname === '/', [history])
+
   return (
     <Box>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -49,11 +51,11 @@ const ModalConfig = forwardRef((_props, ref) => {
                 color: 'white'
               }}
               onClick={() => {
-                history.push('/registers')
+                history.push(isHome ? '/registers' : '/')
                 onClose()
               }}
             >
-              Registros anteriores
+              {isHome ? 'Registros' : 'Inicio'}
             </Button>
             <Button
               data-testid="close-modal-btn"
