@@ -1,4 +1,5 @@
 import React from 'react'
+import { Register } from '../../services/getRegisters'
 
 import {
   Accordion,
@@ -9,17 +10,27 @@ import {
   Box,
   Text,
   Input,
-  Form
+  Form,
+  MdDelete,
+  FaRegEdit
 } from '../../shared'
 
 export interface RegisterProps {
   title: string
+  data: Register
 }
 
-const Register: React.FC<RegisterProps> = ({ title }) => {
+const masks = {
+  email: '',
+  telefone: '(99) 9999-9999',
+  cpf: '999.999.999-99',
+  nome: ''
+}
+
+const RegisterUI: React.FC<RegisterProps> = ({ data, title }) => {
   return (
-    <Box w="100%">
-      <Accordion defaultIndex={[0]} allowToggle borderRadius="sm">
+    <Box w="100%" my="1rem">
+      <Accordion allowToggle borderRadius="sm" allowMultiple={false}>
         <AccordionItem bg="white" border="0" borderRadius="2px">
           <Box as="h2">
             <AccordionButton outline="none">
@@ -37,18 +48,37 @@ const Register: React.FC<RegisterProps> = ({ title }) => {
           </Box>
           <AccordionPanel p={2} bg="#264653" borderBottomRadius="2px">
             <Form onSubmit={() => null}>
-              <Input
-                border="0"
-                mask="***.***.***-**"
-                value={'70136417230'}
-                name="cpf"
-                bg="#e76f51"
-                color=""
-                opacity={0.5}
-                isReadOnly
-                h="1.5rem"
-              />
+              {Object.entries(data).map(([key, value]) => (
+                <Input
+                  my="1"
+                  key={key}
+                  border="0"
+                  mask={masks[key as keyof typeof masks]}
+                  value={value}
+                  name={key}
+                  bg="#e76f51"
+                  color=""
+                  isReadOnly
+                  h="1.5rem"
+                  fontStyle="italic"
+                />
+              ))}
             </Form>
+            <Box w="100%" d="flex" flexDir="row">
+              <Box
+                size={'2rem'}
+                as={MdDelete}
+                color="#f4a261"
+                mr="3"
+                cursor="pointer"
+              />
+              <Box
+                size={'1.8rem'}
+                as={FaRegEdit}
+                color="#f4a261"
+                cursor="pointer"
+              />
+            </Box>
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
@@ -56,4 +86,4 @@ const Register: React.FC<RegisterProps> = ({ title }) => {
   )
 }
 
-export default Register
+export default RegisterUI

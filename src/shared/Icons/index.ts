@@ -1,3 +1,5 @@
 export { BsInfoCircle } from 'react-icons/bs'
 export { AiFillSetting } from 'react-icons/ai'
 export { IoArrowBackSharp } from 'react-icons/io5'
+export { MdDelete } from 'react-icons/md'
+export { FaRegEdit } from 'react-icons/fa'
