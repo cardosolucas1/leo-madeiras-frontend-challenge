@@ -114,7 +114,8 @@ const Input: React.FC<InputProps> = ({
           fontSize="1rem"
           data-testid="input-error"
           textAlign="end"
-          mt="4"
+          mt="0"
+          mb="1"
         >
           {error}
         </FormHelperText>

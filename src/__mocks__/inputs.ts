@@ -9,7 +9,7 @@ export const inputs: Inputs[] = [
   {
     label: 'Qual seu nome?',
     placeholder: 'Uzumaki Naruto',
-    name: 'name',
+    name: 'nome',
     mask: ''
   },
   {
@@ -21,7 +21,7 @@ export const inputs: Inputs[] = [
   {
     label: 'Telefone pra contato?',
     placeholder: '(99) 9 9999-9999',
-    name: 'phone',
+    name: 'telefone',
     mask: '(99) 9999-9999'
   },
   {

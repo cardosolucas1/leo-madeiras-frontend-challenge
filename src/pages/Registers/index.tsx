@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 import { useHistory } from 'react-router'
 
@@ -7,6 +7,7 @@ import { Header, Register } from '../../components'
 
 import { getRegisters } from '../../services/getRegisters'
 import { deleteRegister } from '../../services/deleteRegister'
+import { updateRegister } from '../../services/updateRegister'
 
 import EmptyReport from './components/EmptyReport'
 
@@ -35,7 +36,6 @@ const Registers: React.FC = () => {
               deleteRegister(e)
               setRegisters(getRegisters())
             }}
-            onUpdateRegister={() => null}
             key={index}
             title={nome}
             data={{ cpf, email, nome, telefone }}

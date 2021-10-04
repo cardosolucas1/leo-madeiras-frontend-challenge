@@ -16,11 +16,11 @@ import {
 } from '../../shared'
 
 import ModalConfig, { ModalConfigHandler } from '../ModalConfig'
+import ModalEditRegister from '../ModalEditRegister'
 
 export interface RegisterProps {
   title: string
   data: Register
-  onUpdateRegister: (data: Register) => void
   onDeleteRegister: (cpf: Register['cpf']) => void
 }
 
@@ -34,10 +34,10 @@ const masks = {
 const RegisterUI: React.FC<RegisterProps> = ({
   data,
   title,
-  onDeleteRegister,
-  onUpdateRegister
+  onDeleteRegister
 }) => {
   const modalRef = useRef<ModalConfigHandler>(null)
+  const modalEditRef = useRef<ModalConfigHandler>(null)
 
   return (
     <Box w="100%" my="1rem">
@@ -50,6 +50,7 @@ const RegisterUI: React.FC<RegisterProps> = ({
         }}
         primaryButtonText={'Sim'}
       />
+      <ModalEditRegister data={data} ref={modalEditRef} />
       <Accordion allowToggle borderRadius="sm" allowMultiple={false}>
         <AccordionItem bg="white" border="0" borderRadius="2px">
           <Box as="h2">
@@ -94,7 +95,7 @@ const RegisterUI: React.FC<RegisterProps> = ({
                 cursor="pointer"
               />
               <Box
-                onClick={() => onUpdateRegister(data)}
+                onClick={() => modalEditRef.current?.onOpen()}
                 size={'1.8rem'}
                 as={FaRegEdit}
                 color="#f4a261"
