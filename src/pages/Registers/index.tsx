@@ -5,15 +5,20 @@ import { useHistory } from 'react-router'
 import { Box, IoArrowBackSharp, Text } from '../../shared'
 import { Header, Register } from '../../components'
 
+import { Register as RegisterInterface } from '../../services/getRegisters'
+
 import { getRegisters } from '../../services/getRegisters'
 import { deleteRegister } from '../../services/deleteRegister'
-import { updateRegister } from '../../services/updateRegister'
 
 import EmptyReport from './components/EmptyReport'
 
 const Registers: React.FC = () => {
   const [registers, setRegisters] = useState(getRegisters())
   const history = useHistory()
+
+  const updateData = (data: RegisterInterface[]) => {
+    setRegisters(data)
+  }
 
   return (
     <Box
@@ -34,8 +39,9 @@ const Registers: React.FC = () => {
           <Register
             onDeleteRegister={(e) => {
               deleteRegister(e)
-              setRegisters(getRegisters())
+              updateData(getRegisters())
             }}
+            updateData={updateData}
             key={index}
             title={nome}
             data={{ cpf, email, nome, telefone }}

@@ -16,7 +16,7 @@ import {
 } from '../../shared'
 
 import { forwardRef } from '@chakra-ui/react'
-import { Register } from '../../services/getRegisters'
+import { Register, getRegisters } from '../../services/getRegisters'
 
 import { inputs } from '../../__mocks__/inputs'
 import { onSubmitFormValidator } from '../../validators/onSubmitFormValidator'
@@ -30,10 +30,11 @@ export interface ModalConfigHandler {
 
 export interface ModalEditRegisterProps {
   data: Register
+  updateData: (e: Register[]) => void
 }
 
 const ModalEditRegister = forwardRef(
-  ({ data }: ModalEditRegisterProps, ref) => {
+  ({ data, updateData }: ModalEditRegisterProps, ref) => {
     const { isOpen, onClose, onOpen } = useDisclosure()
     const formRef = useRef<FormHandles>(null)
 
@@ -51,6 +52,7 @@ const ModalEditRegister = forwardRef(
         success: (info: Register) => {
           updateRegister(info)
           onClose()
+          updateData(getRegisters())
         },
         isUpdate: true
       })
