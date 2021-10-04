@@ -17,23 +17,18 @@ import { useHistory } from 'react-router'
 import { inputs } from '../../__mocks__/inputs'
 
 import { onSubmitFormValidator } from '../../validators/onSubmitFormValidator'
-export interface InputsKeys {
-  name: string
-  email: string
-  phone: string
-  cpf: string
-}
+import { Register } from '../../services/getRegisters'
 
 const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
   const history = useHistory()
 
-  const onSubmit = useCallback(async (data: InputsKeys) => {
+  const onSubmit = useCallback(async (data: Register) => {
     await onSubmitFormValidator({
       data,
       formRef,
-      success: ({ cpf, email, phone, name }: InputsKeys) => {
-        createRegister({ nome: name, cpf, email, telefone: phone })
+      success: ({ cpf, email, telefone, nome }: Register) => {
+        createRegister({ nome, cpf, email, telefone })
         history.push('/registers')
       }
     })

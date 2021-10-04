@@ -15,6 +15,7 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:prettier/recommended'
   ],
   rules: {
@@ -24,7 +25,7 @@ module.exports = {
     'react/no-children-prop': 'off',
     'generator-star-spacing': ['warn', { before: false, after: true }],
     'space-before-function-paren': 'off',
-    'no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': 'off',
     semi: [2, 'never']
   }
 }

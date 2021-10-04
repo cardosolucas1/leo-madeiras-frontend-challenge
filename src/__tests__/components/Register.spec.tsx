@@ -6,6 +6,8 @@ import Register from '../../components/Register'
 
 import * as components from '../../shared'
 
+import * as registersService from '../../services/deleteRegister'
+
 jest.mock('../../shared', () => {
   const shared = jest.requireActual('../../shared')
   return {
@@ -20,10 +22,21 @@ jest.mock('../../shared', () => {
   }
 })
 
+jest.mock('../../components/ModalConfig', () => {
+  return {
+    __esModule: true,
+    default: jest.fn(({ onPrimaryButtonClick }) => (
+      <button onClick={onPrimaryButtonClick}>Modal Config</button>
+    ))
+  }
+})
+
 describe('Register component should work correctly', () => {
   const setup = () => {
+    const onDeleteRegister = jest.fn()
     const wrapper = render(
       <Register
+        onDeleteRegister={onDeleteRegister}
         title="title"
         data={{
           cpf: '1111111111',
@@ -33,7 +46,7 @@ describe('Register component should work correctly', () => {
         }}
       />
     )
-    return { ...wrapper }
+    return { ...wrapper, onDeleteRegister }
   }
 
   it('Should render register elements on screen', () => {
@@ -62,5 +75,14 @@ describe('Register component should work correctly', () => {
     fireEvent.click(getByTestId('form-btn'))
 
     expect(submit).toHaveBeenCalled()
+  })
+
+  it('Should call onDeleteRegister and through the modal config', () => {
+    jest.spyOn(registersService, 'deleteRegister')
+    const { getByText, onDeleteRegister } = setup()
+
+    fireEvent.click(getByText(/Modal Config/i))
+
+    expect(onDeleteRegister).toHaveBeenCalledWith('1111111111')
   })
 })
