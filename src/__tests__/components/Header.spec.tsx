@@ -9,7 +9,12 @@ jest.mock('../../components/ModalConfig', () => ({
   default: () => <div>Modal Config</div>
 }))
 
-describe('Header component should render correctly', () => {
+jest.mock('react-router', () => {
+  const router = jest.requireActual('react-router')
+  return { ...router, useHistory: () => ({ location: { pathname: '/' } }) }
+})
+
+describe('Header component should render correctly ', () => {
   const setup = () => {
     const wrapper = render(<Header />)
     return { ...wrapper }

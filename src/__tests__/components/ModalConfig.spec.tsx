@@ -64,7 +64,7 @@ describe('ModalConfig component should render correctly', () => {
           onOpen
         } as any)
     )
-    const { getByTestId, rerender, onPrimaryButtonClick } = setup(ref)
+    const { getByTestId, onPrimaryButtonClick } = setup(ref)
 
     ref.current?.onOpen()
     fireEvent.click(getByTestId('modal-btn'))
