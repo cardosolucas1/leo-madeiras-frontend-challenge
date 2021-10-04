@@ -8,14 +8,14 @@ describe('onSubmitFormValidator should work as expected', () => {
   const setup = () => {
     const validData = {
       cpf: '646.255.110-03',
-      name: 'Test name',
-      phone: '(11) 1111-1111',
+      nome: 'Test name',
+      telefone: '(11) 1111-1111',
       email: 'email@email.com'
     }
     const invalidData = {
       cpf: '000.000.000-00',
-      name: '',
-      phone: '',
+      nome: '',
+      telefone: '',
       email: 'email@email'
     }
     const getErrors = jest.fn()
@@ -46,8 +46,8 @@ describe('onSubmitFormValidator should work as expected', () => {
     expect(success).toHaveBeenCalledWith({
       cpf: '64625511003',
       email: 'email@email.com',
-      name: 'Test name',
-      phone: '1111111111'
+      nome: 'Test name',
+      telefone: '1111111111'
     })
   })
 
