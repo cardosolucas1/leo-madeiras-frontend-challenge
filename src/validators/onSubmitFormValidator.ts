@@ -1,7 +1,6 @@
 import { RefObject } from 'react'
 
-import { InputsKeys } from '../pages/Home'
-import { getRegisters } from '../services/getRegisters'
+import { getRegisters, Register } from '../services/getRegisters'
 
 import { FormHandles } from '../shared'
 
@@ -13,36 +12,34 @@ import { ValidationError } from 'yup'
 
 export interface FormValidationProps {
   formRef: RefObject<FormHandles>
-  data: InputsKeys
-  // eslint-disable-next-line no-unused-vars
-  success: (e: InputsKeys) => void
+  data: Register
+  success: (e: Register) => void
+  isUpdate?: boolean
 }
 
 export const onSubmitFormValidator = async ({
   success,
   data,
-  formRef
+  formRef,
+  isUpdate
 }: FormValidationProps): Promise<void> => {
   const cpf = returnOnlyNumbers(data.cpf)
-  const phone = returnOnlyNumbers(data.phone)
+  const telefone = returnOnlyNumbers(data.telefone)
 
   formRef?.current?.setErrors({})
 
   if (
     getRegisters()
       .map((e) => e.cpf)
-      .includes(cpf)
+      .includes(cpf) &&
+    !isUpdate
   ) {
     return formRef.current?.setErrors({ cpf: 'CPF já cadastrado' })
   }
 
   try {
     await formValidator.validate(
-      {
-        ...data,
-        cpf,
-        phone
-      },
+      { ...data, telefone, cpf },
       {
         abortEarly: false
       }
@@ -50,11 +47,7 @@ export const onSubmitFormValidator = async ({
 
     if (!cpfValidator.isValid(cpf))
       return formRef.current?.setErrors({ cpf: 'CPF inválido' })
-    return success({
-      ...data,
-      cpf,
-      phone
-    })
+    return success({ ...data, telefone, cpf })
   } catch (error) {
     if (error instanceof ValidationError) {
       const errors = getValidationErrors(error)

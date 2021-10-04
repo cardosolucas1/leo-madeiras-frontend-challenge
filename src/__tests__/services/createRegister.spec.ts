@@ -8,10 +8,10 @@ jest.mock('../../services/getRegisters', () => {
 })
 
 describe('createRegister service should work as expected', () => {
-  it('Should getItem and SetItem when a new register when createRegister is called', async () => {
+  it('Should getItem and SetItem when a new register when createRegister is called', () => {
     const spySetItem = jest.spyOn(window.localStorage.__proto__, 'setItem')
     const spyGetRegisters = jest.spyOn(registers, 'getRegisters')
-    const result = await createRegister({
+    const result = createRegister({
       nome: 'nome',
       telefone: 'telefone',
       email: 'email',

@@ -1,7 +1,7 @@
 import { getRegisters } from '../../services/getRegisters'
 
 describe('getRegisters service should work as expected', () => {
-  it('Should get all registers when getRegisters is called without params', async () => {
+  it('Should get all registers when getRegisters is called without params', () => {
     const spyGetItem = jest
       .spyOn(window.localStorage.__proto__, 'getItem')
       .mockReturnValue(null)
@@ -12,7 +12,7 @@ describe('getRegisters service should work as expected', () => {
     expect(result).toEqual([])
   })
 
-  it('Should get all registers when getRegisters is called with params', async () => {
+  it('Should get all registers when getRegisters is called with params', () => {
     const spyGetItem = jest
       .spyOn(window.localStorage.__proto__, 'getItem')
       .mockReturnValue(JSON.stringify([{ cpf: '1' }]))
