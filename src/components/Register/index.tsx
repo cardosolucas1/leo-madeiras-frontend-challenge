@@ -87,7 +87,7 @@ const RegisterUI: React.FC<RegisterProps> = ({
             </Form>
             <Box w="100%" d="flex" flexDir="row">
               <Box
-                onClick={() => modalRef.current?.onOpen()}
+                onClick={modalRef.current?.onOpen}
                 size={'2rem'}
                 as={MdDelete}
                 color="#f4a261"
@@ -95,7 +95,7 @@ const RegisterUI: React.FC<RegisterProps> = ({
                 cursor="pointer"
               />
               <Box
-                onClick={() => modalEditRef.current?.onOpen()}
+                onClick={modalEditRef.current?.onOpen}
                 size={'1.8rem'}
                 as={FaRegEdit}
                 color="#f4a261"
