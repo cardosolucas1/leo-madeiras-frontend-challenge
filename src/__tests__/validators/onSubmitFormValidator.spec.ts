@@ -86,7 +86,12 @@ describe('onSubmitFormValidator should work as expected', () => {
     ])
     const success = jest.fn()
     const { ref, validData } = setup()
-    await onSubmitFormValidator({ success, formRef: ref, data: validData })
+    await onSubmitFormValidator({
+      success,
+      formRef: ref,
+      data: validData,
+      isUpdate: false
+    })
 
     expect(success).not.toHaveBeenCalled()
     expect(ref.current?.setErrors).toHaveBeenCalledWith({
