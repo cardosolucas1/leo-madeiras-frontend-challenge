@@ -6,8 +6,6 @@ import { renderHook } from '@testing-library/react-hooks'
 import ModalConfig, { ModalConfigHandler } from '../../components/ModalConfig'
 import * as shared from '../../shared'
 
-import * as reactRouter from 'react-router'
-
 jest.mock('../../shared', () => {
   const rest = jest.requireActual('../../shared')
   return {
@@ -33,8 +31,16 @@ jest.mock('react-router', () => {
 
 describe('ModalConfig component should render correctly', () => {
   const setup = (ref?: RefObject<ModalConfigHandler>) => {
-    const wrapper = render(<ModalConfig ref={ref} />)
-    return { ...wrapper }
+    const onPrimaryButtonClick = jest.fn()
+    const wrapper = render(
+      <ModalConfig
+        title="Navegar para"
+        ref={ref}
+        primaryButtonText="Inicio"
+        onPrimaryButtonClick={onPrimaryButtonClick}
+      />
+    )
+    return { ...wrapper, onPrimaryButtonClick }
   }
 
   it('Should render two buttons on screen', () => {
@@ -44,27 +50,6 @@ describe('ModalConfig component should render correctly', () => {
   })
 
   it('Should call modal`s handlers when buttons is clicked', () => {
-    const push = jest.fn()
-    jest
-      .spyOn(reactRouter, 'useHistory')
-      .mockImplementationOnce(
-        jest.fn(
-          () =>
-            ({
-              push,
-              location: { pathname: '/' }
-            } as any)
-        )
-      )
-      .mockImplementationOnce(
-        jest.fn(
-          () =>
-            ({
-              push,
-              location: { pathname: '/registers' }
-            } as any)
-        )
-      )
     const {
       result: { current: ref }
     } = renderHook(() => useRef<ModalConfigHandler>(null))
@@ -79,7 +64,7 @@ describe('ModalConfig component should render correctly', () => {
           onOpen
         } as any)
     )
-    const { getByTestId, rerender } = setup(ref)
+    const { getByTestId, rerender, onPrimaryButtonClick } = setup(ref)
 
     ref.current?.onOpen()
     fireEvent.click(getByTestId('modal-btn'))
@@ -87,11 +72,6 @@ describe('ModalConfig component should render correctly', () => {
 
     expect(onOpen).toHaveBeenCalled()
     expect(onClose).toHaveBeenCalled()
-    expect(push).toHaveBeenCalledWith('/registers')
-
-    rerender(<ModalConfig ref={ref} />)
-    fireEvent.click(getByTestId('modal-btn'))
-
-    expect(push).toHaveBeenCalledWith('/')
+    expect(onPrimaryButtonClick).toHaveBeenCalled()
   })
 })
