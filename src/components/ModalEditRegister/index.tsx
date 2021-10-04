@@ -25,6 +25,7 @@ import { updateRegister } from '../../services/updateRegister'
 export interface ModalConfigHandler {
   onOpen: () => void
   onClose: () => void
+  isUpdated: () => void
 }
 
 export interface ModalEditRegisterProps {
