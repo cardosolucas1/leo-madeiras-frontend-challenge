@@ -1,5 +1,11 @@
 ## Desafio Front-end Leo Madeiras
 
+### Inciando o projeto
+- Clone o repositório
+- Instale as dependências com o comando ```yarn install```
+- Na raiz do projeto execute o comando ```yarn start```
+- Para rodar os testes utilize o comando ```yarn test```
+
 ### Design
 
 A inspiração de design foi desenvolvido na plataforma Figma, você pode acessar o projeto [clicando aqui](https://www.figma.com/file/WUUVMv0i6LA4qlQQgAR5Yv/Léo-Madeiras-Desafio-técnico?node-id=0%3A1), ou observando o screenshot abaixo:
@@ -23,4 +29,5 @@ atualização em tempo real de estado devido as máscaras utilizadas, mas todo o
 - O modal é aberto através de referências adicionadas ao Header, utilizando um hook bastante legal (useImperativeHandle)
 - A arquitetura do projeto foi pensada para ser limpa, logo, permitindo o desenvolvimento de códigos mais sustentáveis, reutilizáveis, manuteníveis, escaláveis e entendíveis.
 - O Chakra UI é o principal framework/lib de estilização
-- Os testes unitários estão cobrindo as principais funcionalidades do projeto 
+- Os testes unitários estão cobrindo as principais funcionalidades do projeto, com cobertura acima dos 90%.
+
